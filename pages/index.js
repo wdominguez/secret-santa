@@ -17,7 +17,8 @@ export default function Home() {
         name: value,
       })
       .then(function (response) {
-        setNames(response);
+        console.log('response', response);
+        setNames(response.data.names);
       })
       .catch(function (error) {
         console.log(error);
@@ -37,8 +38,8 @@ export default function Home() {
       </form>
       <p>Names Taken: </p>
       <ul>
-        {name.map((name) => (
-          <li>name</li>
+        {names.map((name) => (
+          <li>{name}</li>
         ))}
       </ul>
     </>
