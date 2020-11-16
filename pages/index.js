@@ -36,12 +36,18 @@ export default function Home() {
         </label>
         <input type='submit' value='Submit' />
       </form>
-      <p>Names Taken: </p>
-      <ul>
-        {names.map((name) => (
-          <li>{name}</li>
-        ))}
-      </ul>
+      {names.length == 7 ? (
+        <>
+          <p>Names Taken: </p>
+          <ul>
+            {names.map((name) => (
+              <li>{name}</li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>Names will be shown to the last person to submit</p>
+      )}
     </>
   );
 }
