@@ -1,14 +1,26 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 const axios = require('axios').default;
 
 export default function Home() {
   const [value, setValue] = useState('');
   const [names, setNames] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [isAirika, setIsAirika] = useState(false);
+
+  useEffect(() => {
+    axios.get('api/hello').then(function (response) {
+      setNames(response.data.names);
+    });
+  }, []);
 
   function handleChange(event) {
     setValue(event.target.value);
+  }
+
+  function handleAirikaSubmit(event) {
+    setIsAirika(true);
+
+    event.preventDefault();
   }
 
   function handleSubmit(event) {
@@ -17,26 +29,43 @@ export default function Home() {
         name: value,
       })
       .then(function (response) {
-        console.log('response', response);
+        console.log('response.data.names', response.data.names);
         setNames(response.data.names);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('error: ', error);
       });
+
+    setSubmitted(true);
 
     event.preventDefault();
   }
 
+  // console.log('isAirika: ', isAirika);
+  // console.log('names: ', names);
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type='text' value={value} onChange={handleChange} />
-        </label>
-        <input type='submit' value='Submit' />
-      </form>
-      {names.length == 7 ? (
+      {submitted ? (
+        <p>Submitted</p>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Name:
+              <input type='text' value={value} onChange={handleChange} />
+            </label>
+            <input type='submit' value='Submit' />
+          </form>
+          <form onSubmit={handleAirikaSubmit}>
+            <input
+              type='submit'
+              value='Airika-only submit, dont press if youre not airika'
+            />
+          </form>
+        </>
+      )}
+      {names.length == 4 && isAirika ? (
         <>
           <p>Names Taken: </p>
           <ul>
@@ -45,8 +74,10 @@ export default function Home() {
             ))}
           </ul>
         </>
+      ) : names.length == 4 ? (
+        <p>EVERYONE HAS SUBMITTED, TELL AIRIKA TO SUBMIT</p>
       ) : (
-        <p>Names will be shown to the last person to submit</p>
+        <p>Names will be shown only to airika after everyone has submitted</p>
       )}
     </>
   );
