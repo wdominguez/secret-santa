@@ -7,5 +7,5 @@ export default (req, res) => {
   names.push(req.body.name)
   // if(name.length 
   console.log(names)
-  res.status(200).json({ text: 'received' })
+  res.status(200).json({ names: names })
 }

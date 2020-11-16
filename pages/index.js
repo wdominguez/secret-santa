@@ -1,39 +1,46 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import {useState} from 'react'
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import { useState } from 'react';
 const axios = require('axios').default;
 
 export default function Home() {
-  const [value, setValue] = useState('')
-  
+  const [value, setValue] = useState('');
+  const [names, setNames] = useState([]);
 
   function handleChange(event) {
     setValue(event.target.value);
   }
 
-  function handleSubmit(event) { 
-    // alert('A name was submitted: ' + value);
-
-    axios.post('api/hello', {
-      name: value
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  function handleSubmit(event) {
+    axios
+      .post('api/hello', {
+        name: value,
+      })
+      .then(function (response) {
+        setNames(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
     event.preventDefault();
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
+      <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input type="text" value={value} onChange={handleChange} />
+          <input type='text' value={value} onChange={handleChange} />
         </label>
-        <input type="submit" value="Submit" />
+        <input type='submit' value='Submit' />
       </form>
-  )
+      <p>Names Taken: </p>
+      <ul>
+        {name.map((name) => (
+          <li>name</li>
+        ))}
+      </ul>
+    </>
+  );
 }
