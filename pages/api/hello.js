@@ -1,6 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+const names = []
+
 export default (req, res) => {
-  res.statusCode = 200
-  res.json({ name: 'John Doe' })
+  // console.log('name:  ', req.body.name)
+  names.push(req.body.name)
+  // if(name.length 
+  console.log(names)
+  res.status(200).json({ text: 'received' })
 }
