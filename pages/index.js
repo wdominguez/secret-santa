@@ -45,19 +45,19 @@ export default function Home() {
   // console.log('names: ', names);
 
   return (
-    <>
+    <div style={{ margin: 20 }}>
       {submitted ? (
         <p>Submitted</p>
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
+          <form style={{ margin: 20 }} onSubmit={handleSubmit}>
             <label>
               Name:
               <input type='text' value={value} onChange={handleChange} />
             </label>
             <input type='submit' value='Submit' />
           </form>
-          <form onSubmit={handleAirikaSubmit}>
+          <form style={{ margin: 20 }} onSubmit={handleAirikaSubmit}>
             <input
               type='submit'
               value='Airika-only submit, dont press if youre not airika'
@@ -79,6 +79,6 @@ export default function Home() {
       ) : (
         <p>Names will be shown only to airika after everyone has submitted</p>
       )}
-    </>
+    </div>
   );
 }
