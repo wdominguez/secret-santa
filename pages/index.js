@@ -65,7 +65,7 @@ export default function Home() {
           </form>
         </>
       )}
-      {names.length == 4 && isAirika ? (
+      {names.length == 18 && isAirika ? (
         <>
           <p>Names Taken: </p>
           <ul>
@@ -74,7 +74,7 @@ export default function Home() {
             ))}
           </ul>
         </>
-      ) : names.length == 4 ? (
+      ) : names.length == 18 ? (
         <p>EVERYONE HAS SUBMITTED, TELL AIRIKA TO SUBMIT</p>
       ) : (
         <p>Names will be shown only to airika after everyone has submitted</p>
